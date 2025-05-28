@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather App Interface - Tamil Nadu</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #87CEEB, #1E90FF);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    /* Navigation bar */
+    nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
+    nav a {
+      margin: 0 20px;
+      text-decoration: none;
+      color: white;
+      font-size: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+    }
+
+    /* Weather cards container */
+    .weather-cards {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+      perspective: 1000px;
+    }
+
+    /* Weather card styles */
+    .weather-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+      height: 400px;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      position: relative;
+      transform-style: preserve-3d;
+    }
+
+    .weather-card:hover {
+      transform: rotateY(10deg) rotateX(10deg);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .weather-card h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .weather-card .temp {
+      font-size: 48px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .weather-card .temp span {
+      font-size: 30px;
+      color: #FFD700;
+    }
+
+    .weather-card .condition {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    /* Weather icons area */
+    .weather-icons {
+      position: relative;
+      margin: 30px 0;
+      height: 120px;
+    }
+
+    /* Sun Animation */
+    .sun {
+      background: radial-gradient(circle, #FFD700 60%, #FFA500);
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: spin-sun 6s linear infinite;
+    }
+
+    @keyframes spin-sun {
+      0% {
+        transform: translateX(-50%) rotate(0deg);
+      }
+      100% {
+        transform: translateX(-50%) rotate(360deg);
+      }
+    }
+
+    /* Cloud Animation */
+    .cloud {
+      width: 120px;
+      height: 70px;
+      background-color: #fff;
+      border-radius: 60px;
+      position: absolute;
+      top: 30px;
+      left: 20px;
+      animation: move-cloud 8s ease-in-out infinite;
+    }
+
+    .cloud:before, .cloud:after {
+      content: '';
+      position: absolute;
+      background-color: #fff;
+      border-radius: 50%;
+    }
+
+    .cloud:before {
+      width: 80px;
+      height: 80px;
+      top: -20px;
+      left: 10px;
+    }
+
+    .cloud:after {
+      width: 90px;
+      height: 90px;
+      top: -30px;
+      right: 10px;
+    }
+
+    @keyframes move-cloud {
+      0% {
+        left: 0;
+      }
+      100% {
+        left: 50px;
+      }
+    }
+
+    /* Rain Animation */
+    .rain {
+      width: 50px;
+      height: 100px;
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: space-between;
+      animation: fall-rain 1.5s linear infinite;
+    }
+
+    .rain div {
+      width: 3px;
+      height: 20px;
+      background-color: #87CEEB;
+      animation: raindrop 0.5s linear infinite;
+    }
+
+    .rain div:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .rain div:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .rain div:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes fall-rain {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(50px);
+      }
+    }
+
+    @keyframes raindrop {
+      0% {
+        height: 0;
+      }
+      100% {
+        height: 20px;
+      }
+    }
+
+    
+    /* Adding shadow and gradient for a vibrant look */
+    .weather-card {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      border-radius: 15px;
+    }
+   .logo-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 80px;
+      height: 80px;
+      cursor: pointer;
+    }
+
+    .logo-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+
+    .logo-container img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Navigation bar */
+    nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
+    nav a {
+      margin: 0 20px;
+      text-decoration: none;
+      color: white;
+      font-size: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+    }
+
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Weather Cards for Tamil Nadu Cities -->
+  <div class="weather-cards">
+ <div class="logo-container" onclick="window.location.href='weatherapp.html'">
+    <img src="C:\Users\Asifa parveen\Downloads\skycast.jpg" alt="Weather App Logo">
+  </div>
+
+
+
+    <!-- Chennai Card -->
+    <div class="weather-card">
+      <h2>Chennai</h2>
+      <div class="temp">30<span>°C</span></div>
+      <div class="condition">Sunny</div>
+      <div class="weather-icons">
+        <div class="sun"></div>
+      </div>
+    </div>
+
+    <!-- Coimbatore Card -->
+    <div class="weather-card">
+      <h2>Coimbatore</h2>
+      <div class="temp">28<span>°C</span></div>
+      <div class="condition">Partly Cloudy</div>
+      <div class="weather-icons">
+        <div class="sun"></div>
+        <div class="cloud"></div>
+      </div>
+    </div>
+
+    <!-- Madurai Card -->
+    <div class="weather-card">
+      <h2>Madurai</h2>
+      <div class="temp">33<span>°C</span></div>
+      <div class="condition">Sunny</div>
+      <div class="weather-icons">
+        <div class="sun"></div>
+      </div>
+    </div>
+
+    <!-- Salem Card -->
+    <div class="weather-card">
+      <h2>Salem</h2>
+      <div class="temp">29<span>°C</span></div>
+      <div class="condition">Cloudy</div>
+      <div class="weather-icons">
+        <div class="cloud"></div>
+      </div>
+    </div>
+
+    <!-- Tiruchirappalli Card -->
+    <div class="weather-card">
+      <h2>Tiruchirappalli</h2>
+      <div class="temp">31<span>°C</span></div>
+      <div class="condition">Sunny</div>
+      <div class="weather-icons">
+        <div class="sun"></div>
+      </div>
+    </div>
+
+    <!-- Tirunelveli Card -->
+    <div class="weather-card">
+      <h2>Tirunelveli</h2>
+      <div class="temp">30<span>°C</span></div>
+      <div class="condition">Rainy</div>
+      <div class="weather-icons">
+        <div class="cloud"></div>
+        <div class="rain">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Erode Card -->
+    <div class="weather-card">
+      <h2>Erode</h2>
+      <div class="temp">27<span>°C</span></div>
+      <div class="condition">Windy</div>
+      <div class="weather-icons">
+        <div class="cloud"></div>
+        <div class="rain">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vellore Card -->
+    <div class="weather-card">
+      <h2>Vellore</h2>
+      <div class="temp">29<span>°C</span></div>
+      <div class="condition">Partly Cloudy</div>
+      <div class="weather-icons">
+        <div class="sun"></div>
+        <div class="cloud"></div>
+      </div>
+    </div>
+
+    <!-- Tiruppur Card -->
+    <div class="weather-card">
+      <h2>Tiruppur</h2>
+      <div class="temp">28<span>°C</span></div>
+      <div class="condition">Sunny</div>
+      <div class="weather-icons">
+        <div class="sun"></div>
+      </div>
+    </div>
+
+    <!-- Dindigul Card -->
+    <div class="weather-card">
+      <h2>Dindigul</h2>
+      <div class="temp">26<span>°C</span></div>
+      <div class="condition">Rainy</div>
+      <div class="weather-icons">
+        <div class="cloud"></div>
+        <div class="rain">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thanjavur Card -->
+    <div class="weather-card">
+      <h2>Thanjavur</h2>
+      <div class="temp">30<span>°C</span></div>
+      <div class="condition">Partly Cloudy</div>
+      <div class="weather-icons">
+        <div class="sun"></div>
+        <div class="cloud"></div>
+      </div>
+    </div>
+
+    <!-- Additional Cities -->
+    <!-- Add similar structure for more cities as needed -->
+
+    <!-- Karur Card -->
+    <div class="weather-card">
+      <h2>Karur</h2>
+      <div class="temp">28<span>°C</span></div>
+      <div class="condition">Cloudy</div>
+      <div class="weather-icons">
+        <div class="cloud"></div>
+      </div>
+    </div>
+
+    <!-- Kanyakumari Card -->
+    <div class="weather-card">
+      <h2>Kanyakumari</h2>
+      <div class="temp">29<span>°C</span></div>
+      <div class="condition">Rainy</div>
+      <div class="weather-icons">
+        <div class="cloud"></div>
+        <div class="rain">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nagapattinam Card -->
+    <div class="weather-card">
+      <h2>Nagapattinam</h2>
+      <div class="temp">30<span>°C</span></div>
+      <div class="condition">Windy</div>
+      <div class="weather-icons">
+        <div class="cloud"></div>
+      </div>
+    </div>
+
+    <!-- Perambalur Card -->
+    <div class="weather-card">
+      <h2>Perambalur</h2>
+      <div class="temp">28<span>°C</span></div>
+      <div class="condition">Sunny</div>
+      <div class="weather-icons">
+        <div class="sun"></div>
+      </div>
+    </div>
+
+    <!-- Pudukkottai Card -->
+    <div class="weather-card">
+      <h2>Pudukkottai</h2>
+      <div class="temp">29<span>°C</span></div>
+      <div class="condition">Cloudy</div>
+      <div class="weather-icons">
+        <div class="cloud"></div>
+      </div>
+    </div>
+
+    <!-- Sivaganga Card -->
+    <div class="weather-card">
+      <h2>Sivaganga</h2>
+      <div class="temp">28<span>°C</span></div>
+      <div class="condition">Partly Cloudy</div>
+      <div class="weather-icons">
+        <div class="sun"></div>
+        <div class="cloud"></div>
+      </div>
+    </div>
+
+    <!-- Ramanathapuram Card -->
+    <div class="weather-card">
+      <h2>Ramanathapuram</h2>
+      <div class="temp">31<span>°C</span></div>
+      <div class="condition">Sunny</div>
+      <div class="weather-icons">
+        <div class="sun"></div>
+      </div>
+    </div>
+
+    <!-- Namakkal Card -->
+    <div class="weather-card">
+      <h2>Namakkal</h2>
+      <div class="temp">27<span>°C</span></div>
+      <div class="condition">Rainy</div>
+      <div class="weather-icons">
+        <div class="cloud"></div>
+        <div class="rain">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</body>
+</html>

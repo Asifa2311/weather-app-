@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Weather App</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+            background: url('sky.jpg') no-repeat center center fixed; /* Change the path to your background image */
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .search-box {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .search-box input {
+            padding: 10px;
+            width: 70%;
+            border-radius: 10px;
+            border: 2px solid #ffffff;
+            font-size: 1rem;
+            color: #333;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .search-box button {
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: none;
+            background-color: #5d9cec;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-box button:hover {
+            background-color: #4c7ed3;
+        }
+
+        .weather-info {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .food-recommendation {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            display: none;
+        }
+
+        .food-recommendation ul {
+            list-style: none;
+            padding: 0;
+            font-size: 1rem;
+        }
+
+        .logo-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 80px;
+      height: 80px;
+      cursor: pointer;
+    }
+
+    .logo-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+
+    .logo-container img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Navigation bar */
+    nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
+    nav a {
+      margin: 0 20px;
+      text-decoration: none;
+      color: white;
+      font-size: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+    }
+
+    </style>
+</head>
+<body>
+    <div class="logo-container" onclick="window.location.href='weatherapp.html'">
+    <img src="C:\Users\Asifa parveen\Downloads\skycast.jpg" alt="Weather App Logo">
+  </div>
+    <div class="container">
+        <h1>Weather App</h1>
+        <div class="search-box">
+            <input type="text" id="city-input" placeholder="Enter city name">
+            <button onclick="getWeather()">Search</button>
+        </div>
+
+        <div class="weather-info" id="weather-info">
+            <h2 id="city-name"></h2>
+            <p><b>Temperature:</b> <span id="temp"></span>°C</p>
+            <p><b>Weather Condition:</b> <span id="condition"></span></p>
+        </div>
+
+        <div class="food-recommendation" id="food-recommendation">
+            <p>Recommended Foods for this Weather:</p>
+            <ul id="food-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        function getWeather() {
+            const city = document.getElementById('city-input').value;
+            const url = `get_weather.php?city=${city}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        document.getElementById('city-name').textContent = data.name;
+                        document.getElementById('temp').textContent = data.main.temp;
+                        document.getElementById('condition').textContent = data.weather[0].description;
+
+                        document.getElementById('weather-info').style.display = 'block';
+                        showFoodRecommendation(data.main.temp); // Call the food recommendation function
+                    }
+                });
+        }
+
+        function showFoodRecommendation(temp) {
+            const foodList = document.getElementById('food-list');
+            foodList.innerHTML = '';
+
+            let foods;
+            if (temp < 20) {
+                foods = ['Soup', 'Hot Chocolate', 'Pasta'];
+            } else if (temp >= 20 && temp <= 30) {
+                foods = ['Salad', 'Sandwich', 'Grilled Chicken'];
+            } else {
+                foods = ['Ice Cream', 'Cold Juice', 'Fresh Fruits'];
+            }
+
+            foods.forEach(food => {
+                const li = document.createElement('li');
+                li.textContent = food;
+                foodList.appendChild(li);
+            });
+
+            document.getElementById('food-recommendation').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

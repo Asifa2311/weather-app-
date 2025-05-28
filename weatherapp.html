@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background animation */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            animation: fadeInBackground 10s infinite alternate;
+        }
+
+        @keyframes fadeInBackground {
+            0% { filter: brightness(0.8); }
+            100% { filter: brightness(1); }
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px 20px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #FFD700;
+            letter-spacing: 2px;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        nav {
+            margin: 15px 0;
+        }
+
+        nav button {
+            background-color: rgba(93, 156, 236, 0.8);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            margin: 0 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        nav button:hover {
+            background-color: #5DA8EC;
+            transform: scale(1.08);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .content {
+            text-align: center;
+            padding: 60px 20px;
+            flex: 1;
+            animation: slideUp 1.2s ease-out;
+        }
+
+        .description {
+            max-width: 700px;
+            margin: 20px auto;
+            font-size: 1.1em;
+            line-height: 1.7;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9em;
+            position: relative;
+        }
+
+        /* Keyframes for animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <img src="C:\Users\Asifa parveen\Downloads\DALL·E 2024-10-30 23.15.39 - A background image for a weather forecast website homepage, featuring a soft, minimalistic design. The scene shows a cityscape with gentle clouds and .webp" alt="Cloud background" class="background-image">
+
+    <header>
+        <h1>sky cast</h1>
+        <nav>
+            <button onclick="window.location.href='weatherfforecast.html'">About</button>
+            <button onclick="window.location.href='weathermap.html'">Map</button>
+            <button onclick="window.location.href='precautions.html'">Precautions</button>
+            <button onclick="window.location.href='weatherplaces.html'">Places</button>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h2>Welcome to the Weather App!</h2>
+        <p>Your go-to place for the latest weather updates.</p>
+        <div class="description">
+            <p>The Weather Forecast app provides real-time weather information to help you plan your day. With detailed forecasts including temperature, humidity, wind speed, and weather conditions, you can stay informed and prepared for whatever Mother Nature has in store. Whether you're planning a trip, heading out for a run, or just want to know if it's going to rain, our app gives you the insights you need to make the best decisions.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Weather App. All rights reserved.</p>
+    </footer>
+</body>
+</html>

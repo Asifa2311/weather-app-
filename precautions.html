@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Weather Precautions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0f7fa;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 1200px;
+            padding: 10px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #00796b;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .season-section {
+            display: inline-block;
+            width: 300px;
+            height: 300px;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .season-section:hover {
+            transform: scale(1.05);
+        }
+
+        .season-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+            transition: filter 0.5s;
+        }
+
+        .season-section:hover img {
+            filter: brightness(1);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            width: 100%;
+            padding: 20px;
+            opacity: 0;
+            animation: slideUp 1.2s forwards;
+        }
+
+        .overlay h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .overlay ul {
+            list-style-type: none;
+            padding: 0;
+            font-size: 1em;
+        }
+
+        .overlay ul li {
+            margin: 10px 0;
+        }
+
+        /* Tooltip styling */
+        .overlay ul li[title] {
+            position: relative;
+        }
+
+        .overlay ul li[title]:hover::after {
+            content: attr(title);
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            white-space: nowrap;
+            z-index: 10;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translate(-50%, -10%); }
+            100% { opacity: 1; transform: translate(-50%, -50%); }
+        }
+       .logo-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 80px;
+      height: 80px;
+      cursor: pointer;
+    }
+
+    .logo-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+
+    .logo-container img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Navigation bar */
+    nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
+    nav a {
+      margin: 0 20px;
+      text-decoration: none;
+      color: white;
+      font-size: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Precaution Tips</h1>
+        <div class="logo-container" onclick="window.location.href='weatherapp.html'">
+    <img src="C:\Users\Asifa parveen\Downloads\skycast.jpg" alt="Weather App Logo">
+  </div>
+
+
+        <!-- Summer Section -->
+        <div class="season-section">
+            <img src="C:\Users\Asifa parveen\Downloads\summer.jpg" alt="Summer Background Image" />
+            <div class="overlay">
+                <h2>Summer Precautions</h2>
+                <ul>
+                    <li title="Drink water frequently to prevent dehydration.">Stay hydrated</li>
+                    <li title="Avoid sun exposure between 10 AM - 4 PM.">Avoid peak hours</li>
+                    <li title="Wear light, breathable clothes.">Wear light clothing</li>
+                    <li title="Use SPF 30 or higher.">Apply sunscreen</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Rainy Section -->
+        <div class="season-section">
+            <img src="C:\Users\Asifa parveen\Downloads\rainy.jpg" alt="Rainy Background Image" />
+            <div class="overlay">
+                <h2>Rainy Season Precautions</h2>
+                <ul>
+                    <li title="Carry an umbrella or raincoat.">Keep rain protection</li>
+                    <li title="Avoid walking through standing water.">Avoid stagnant water</li>
+                    <li title="Waterproof footwear prevents slipping.">Wear waterproof shoes</li>
+                    <li title="Reduce mosquito breeding areas.">Keep surroundings dry</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Winter Section -->
+        <div class="season-section">
+            <img src="C:\Users\Asifa parveen\Downloads\winter.jpg" alt="Winter Background Image" />
+            <div class="overlay">
+                <h2>Winter Precautions</h2>
+                <ul>
+                    <li title="Layer up to stay warm.">Wear warm clothes</li>
+                    <li title="Stay indoors during extreme cold.">Limit outdoor activities</li>
+                    <li title="Ventilation prevents indoor air pollution.">Ventilate rooms</li>
+                    <li title="Moisturize to prevent dry skin.">Use moisturizer</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

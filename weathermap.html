@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App with Map and Background</title>
+  
+  <!-- Leaflet.js CSS and JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-image: url('your-background-image-url.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+    }
+
+    h1 {
+      margin-top: 20px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    #map {
+      height: 600px;
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 20px;
+      border: 2px solid #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+    }
+
+    .weather-card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      text-align: center;
+      width: 200px;
+      background-color: rgba(255, 255, 255, 0.7);
+      color: black;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .weather-icons .sun {
+      background-color: yellow;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .weather-icons .cloud {
+      background-color: gray;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .weather-icons .rain div {
+      width: 5px;
+      height: 10px;
+      background-color: blue;
+      margin: 2px;
+      display: inline-block;
+    }
+
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #87CEEB, #1E90FF);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    /* Logo in the top-right corner */
+    .logo-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 80px;
+      height: 80px;
+      cursor: pointer;
+    }
+
+    .logo-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+
+    .logo-container img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Navigation bar */
+    nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
+    nav a {
+      margin: 0 20px;
+      text-decoration: none;
+      color: white;
+      font-size: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>Weather Map for Tamil Nadu</h1>
+
+  <!-- Map container -->
+  <div id="map"></div>
+  <div class="logo-container" onclick="window.location.href='weatherapp.html'">
+    <img src="C:\Users\Asifa parveen\Downloads\skycast.jpg" alt="Weather App Logo">
+  </div>
+
+
+  <script>
+  // Initialize the map centered around Tamil Nadu
+  var map = L.map('map').setView([11.1271, 78.6569], 7);
+
+  // Load the tile layer from OpenStreetMap
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Array of cities with their weather details
+  var cities = [
+    { name: "Chennai", lat: 13.0827, lon: 80.2707, temp: "30°C", condition: "Sunny" },
+    { name: "Avadi", lat: 13.1147, lon: 80.1018, temp: "29°C", condition: "Partly Cloudy" },
+    { name: "Porur", lat: 13.0356, lon: 80.1583, temp: "31°C", condition: "Sunny" },
+    { name: "Tambaram", lat: 12.9249, lon: 80.1000, temp: "30°C", condition: "Cloudy" },
+    { name: "Poonamallee", lat: 13.0488, lon: 80.1119, temp: "28°C", condition: "Sunny" },
+    { name: "Ambattur", lat: 13.1147, lon: 80.1485, temp: "29°C", condition: "Partly Cloudy" },
+    { name: "Mylapore", lat: 13.0335, lon: 80.2695, temp: "30°C", condition: "Sunny" },
+    { name: "T. Nagar", lat: 13.0423, lon: 80.2337, temp: "29°C", condition: "Cloudy" },
+    { name: "Guindy", lat: 13.0108, lon: 80.2204, temp: "31°C", condition: "Sunny" },
+    { name: "Nungambakkam", lat: 13.0591, lon: 80.2433, temp: "30°C", condition: "Sunny" },
+    { name: "Velachery", lat: 12.9764, lon: 80.2181, temp: "31°C", condition: "Partly Cloudy" },
+    { name: "Anna Nagar", lat: 13.0866, lon: 80.2104, temp: "29°C", condition: "Cloudy" },
+    { name: "Chromepet", lat: 12.9495, lon: 80.1397, temp: "30°C", condition: "Sunny" },
+    { name: "Madipakkam", lat: 12.9656, lon: 80.1972, temp: "31°C", condition: "Partly Cloudy" },
+    { name: "Pallavaram", lat: 12.9676, lon: 80.1506, temp: "29°C", condition: "Cloudy" },
+    { name: "Adyar", lat: 13.0067, lon: 80.2553, temp: "30°C", condition: "Sunny" },
+    { name: "Besant Nagar", lat: 12.9982, lon: 80.2661, temp: "29°C", condition: "Sunny" },
+    { name: "Kottivakkam", lat: 12.9645, lon: 80.2614, temp: "30°C", condition: "Partly Cloudy" },
+    { name: "Sholinganallur", lat: 12.8898, lon: 80.2290, temp: "31°C", condition: "Sunny" },
+    { name: "Thiruvanmiyur", lat: 12.9817, lon: 80.2598, temp: "29°C", condition: "Cloudy" },
+    { name: "Thoraipakkam", lat: 12.9345, lon: 80.2425, temp: "30°C", condition: "Sunny" },
+    { name: "Kodambakkam", lat: 13.0524, lon: 80.2244, temp: "30°C", condition: "Cloudy" },
+    { name: "Kolathur", lat: 13.1245, lon: 80.2228, temp: "29°C", condition: "Partly Cloudy" },
+    { name: "Coimbatore", lat: 11.0168, lon: 76.9558, temp: "28°C", condition: "Partly Cloudy" },
+    { name: "Madurai", lat: 9.9252, lon: 78.1198, temp: "33°C", condition: "Sunny" },
+    { name: "Salem", lat: 11.6643, lon: 78.1460, temp: "29°C", condition: "Cloudy" },
+    { name: "Tiruchirappalli", lat: 10.7905, lon: 78.7047, temp: "31°C", condition: "Sunny" },
+    { name: "Tirunelveli", lat: 8.7139, lon: 77.7567, temp: "30°C", condition: "Rainy" },
+    { name: "Erode", lat: 11.3410, lon: 77.7172, temp: "27°C", condition: "Windy" },
+    { name: "Vellore", lat: 12.9165, lon: 79.1325, temp: "29°C", condition: "Partly Cloudy" },
+    { name: "Tiruppur", lat: 11.1085, lon: 77.3411, temp: "28°C", condition: "Sunny" },
+    { name: "Dindigul", lat: 10.3680, lon: 77.9803, temp: "26°C", condition: "Rainy" },
+    { name: "Thanjavur", lat: 10.7867, lon: 79.1378, temp: "30°C", condition: "Partly Cloudy" },
+    { name: "Karur", lat: 10.9601, lon: 78.0766, temp: "28°C", condition: "Cloudy" },
+    { name: "Kanyakumari", lat: 8.0883, lon: 77.5385, temp: "29°C", condition: "Rainy" },
+    { name: "Nagapattinam", lat: 10.7662, lon: 79.8424, temp: "30°C", condition: "Windy" },
+    { name: "Perambalur", lat: 11.2332, lon: 78.8830, temp: "28°C", condition: "Sunny" },
+    { name: "Pudukkottai", lat: 10.3797, lon: 78.8202, temp: "29°C", condition: "Cloudy" },
+    { name: "Sivaganga", lat: 9.8470, lon: 78.4836, temp: "28°C", condition: "Partly Cloudy" },
+    { name: "Ramanathapuram", lat: 9.4071, lon: 78.7050, temp: "31°C", condition: "Sunny" },
+    { name: "Namakkal", lat: 11.2197, lon: 78.1677, temp: "27°C", condition: "Rainy" },
+    { name: "Ariyalur", lat: 11.1385, lon: 79.0756, temp: "29°C", condition: "Cloudy" },
+    { name: "Chengalpattu", lat: 12.6934, lon: 79.9757, temp: "30°C", condition: "Partly Cloudy" },
+    { name: "Dharmapuri", lat: 12.1240, lon: 78.1576, temp: "27°C", condition: "Sunny" },
+    { name: "Thoothukudi", lat: 8.7642, lon: 78.1348, temp: "30°C", condition: "Rainy" },
+    { name: "Nilgiris", lat: 11.4064, lon: 76.6932, temp: "22°C", condition: "Windy" },
+    { name: "Tiruvallur", lat: 13.1439, lon: 79.9089, temp: "31°C", condition: "Sunny" },
+    { name: "Viluppuram", lat: 11.9398, lon: 79.4956, temp: "29°C", condition: "Cloudy" },
+    { name: "Virudhunagar", lat: 9.5851, lon: 77.9578, temp: "30°C", condition: "Sunny" },
+    { name: "Krishnagiri", lat: 12.5192, lon: 78.2132, temp: "28°C", condition: "Partly Cloudy" },
+    { name: "Mayiladuthurai", lat: 11.1034, lon: 79.6547, temp: "29°C", condition: "Sunny" },
+    { name: "Ranipet", lat: 12.9420, lon: 79.3305, temp: "28°C", condition: "Rainy" },
+    { name: "Tenkasi", lat: 8.9585, lon: 77.3152, temp: "26°C", condition: "Windy" },
+    { name: "Cuddalore", lat: 11.7480, lon: 79.7714, temp: "29°C", condition: "Sunny" },
+    { name: "Theni", lat: 10.0153, lon: 77.4770, temp: "28°C", condition: "Cloudy" },
+    { name: "Tiruvannamalai", lat: 12.2253, lon: 79.0747, temp: "30°C", condition: "Partly Cloudy" },
+    { name: "Vaniyambadi", lat: 12.6794, lon: 78.6203, temp: "28°C", condition: "Sunny" },
+    { name: "Udumalaipettai", lat: 10.5881, lon: 77.2488, temp: "27°C", condition: "Rainy" },
+    { name: "Pollachi", lat: 10.6583, lon: 77.0082, temp: "26°C", condition: "Cloudy" },
+    { name: "Sirkazhi", lat: 11.2370, lon: 79.7353, temp: "28°C", condition: "Sunny" },
+    { name: "Pattukkottai", lat: 10.4231, lon: 79.3191, temp: "29°C", condition: "Windy" },
+    { name: "Manamadurai", lat: 9.6751, lon: 78.4700, temp: "30°C", condition: "Partly Cloudy" },
+    { name: "Ambur", lat: 12.7917, lon: 78.7167, temp: "28°C", condition: "Cloudy" },
+    { name: "Palani", lat: 10.4502, lon: 77.5219, temp: "27°C", condition: "Rainy" },
+    { name: "Thuraiyur", lat: 11.1493, lon: 78.5987, temp: "29°C", condition: "Cloudy" },
+    { name: "Uthiramerur", lat: 12.6105, lon: 79.7700, temp: "29°C", condition: "Sunny" },
+    { name: "Mettupalayam", lat: 11.2989, lon: 76.9409, temp: "27°C", condition: "Windy" },
+    { name: "Gudalur", lat: 11.5004, lon: 76.4938, temp: "25°C", condition: "Partly Cloudy" },
+    { name: "Arakkonam", lat: 13.0847, lon: 79.6705, temp: "29°C", condition: "Cloudy" },
+    { name: "Aranthangi", lat: 10.1739, lon: 78.9911, temp: "28°C", condition: "Rainy" },
+    { name: "Cheyyar", lat: 12.6610, lon: 79.5495, temp: "30°C", condition: "Sunny" },
+    { name: "Thiruvaiyaru", lat: 10.8742, lon: 79.1044, temp: "30°C", condition: "Partly Cloudy" }
+  ];
+
+  // Loop through cities and add markers with weather details
+  cities.forEach(city => {
+    L.marker([city.lat, city.lon]).addTo(map)
+      .bindPopup(`<b>${city.name}</b><br>Temperature: ${city.temp}<br>Condition: ${city.condition}`);
+  });
+</script>
+
+</body>
+</html>
