@@ -25,6 +25,7 @@ This Weather Forecasting Web App provides real-time weather updates for multiple
 5. Open `index.html` in your browser.
 
 ## project screanshots
+![Screenshot 2025-05-28 121902](https://github.com/user-attachments/assets/a7ca1eda-6172-487c-85ca-b2924dfb53dc)
 ![Screenshot 2025-05-28 122200](https://github.com/user-attachments/assets/ec1cc5f3-f63b-4c9f-bf87-b053619d0944)
 ![Screenshot 2025-05-28 122121](https://github.com/user-attachments/assets/c1564d30-66e6-4fef-97ff-53985b93d215)
 ![Screenshot 2025-05-28 121902![Screenshot 2025-05-28 122353](https://github.com/user-attachments/assets/2e228737-4cc8-4efc-8feb-929851d0aba7)
