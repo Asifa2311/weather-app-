@@ -19,7 +19,7 @@ This Weather Forecasting Web App provides real-time weather updates for multiple
 - Mapping: Leaflet.js 
 
 ## Installation & Usage
-1. Clone this repository:
+1. Clone this repository: https://asifa2311.github.io/weather-app-/
 2. Obtain an API key from [OpenWeatherMap](https://openweathermap.org/api).
 3. Update the API key in the PHP file (`get_weather.php`).
 4. Host the project on a local server (e.g., XAMPP) or web server.
