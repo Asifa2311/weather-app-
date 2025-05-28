@@ -19,3 +19,27 @@ This Weather Forecasting Web App provides real-time weather updates for multiple
 
 ## Installation & Usage
 1. Clone this repository:
+2. Obtain an API key from [OpenWeatherMap](https://openweathermap.org/api).
+3. Update the API key in the PHP file (`get_weather.php`).
+4. Host the project on a local server (e.g., XAMPP) or web server.
+5. Open `index.html` in your browser.
+
+## project screanshots
+![Screenshot 2025-05-28 122200](https://github.com/user-attachments/assets/ec1cc5f3-f63b-4c9f-bf87-b053619d0944)
+![Screenshot 2025-05-28 122121](https://github.com/user-attachments/assets/c1564d30-66e6-4fef-97ff-53985b93d215)
+![Screenshot 2025-05-28 121902![Screenshot 2025-05-28 122353](https://github.com/user-attachments/assets/2e228737-4cc8-4efc-8feb-929851d0aba7)
+](htt![Screenshot 2025-05-28 121717](https://github.com/user-attachments/assets/95aec53e-36a6-40f3-ad0a-a7777dd13e7f)
+
+## Future Improvements
+- Add hourly and weekly forecasts.  
+- Integrate user location for automatic weather updates.  
+- Enhance UI with animations and better responsiveness.
+
+## Author
+Asifa parveen M.A  
+Email: asifaaboobacker@gamil.com   
+GitHub: https://github.com/Asifa2311
+
+
+
+
