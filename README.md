@@ -10,12 +10,13 @@ This Weather Forecasting Web App provides real-time weather updates for multiple
 - Fetches live data from the OpenWeatherMap API.
 - Interactive map with city markers showing weather details on click.
 - Responsive design for use on desktops and mobile devices.
+- food recomendation system 
 
 ## Technologies Used
 - Frontend: HTML, CSS, JavaScript
 - Backend: PHP (for API calls and data handling)
 - APIs: OpenWeatherMap API
-- Mapping: Leaflet.js / Folium (or specify if used)
+- Mapping: Leaflet.js 
 
 ## Installation & Usage
 1. Clone this repository:
